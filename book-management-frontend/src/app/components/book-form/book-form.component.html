@@ -1,0 +1,110 @@
+<div class="container">
+  <h1>{{ isEditMode ? 'Edit Book' : '➕ Add New Book' }}</h1>
+  
+  <form (ngSubmit)="onSubmit()" #bookForm="ngForm" class="book-form">
+    <div class="form-group">
+      <label for="title">Title *</label>
+      <input 
+        type="text" 
+        id="title" 
+        name="title"
+        [(ngModel)]="book.title"
+        required
+        #title="ngModel"
+        class="form-control"
+      >
+      <div *ngIf="title.invalid && title.touched" class="error">
+        Title is required
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="author">Author *</label>
+      <input 
+        type="text" 
+        id="author" 
+        name="author"
+        [(ngModel)]="book.author"
+        required
+        #author="ngModel"
+        class="form-control"
+      >
+      <div *ngIf="author.invalid && author.touched" class="error">
+        Author is required
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label for="isbn">ISBN</label>
+        <input 
+          type="text" 
+          id="isbn" 
+          name="isbn"
+          [(ngModel)]="book.isbn"
+          class="form-control"
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="publishedYear">Published Year</label>
+        <input 
+          type="number" 
+          id="publishedYear" 
+          name="publishedYear"
+          [(ngModel)]="book.publishedYear"
+          class="form-control"
+        >
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label for="genre">Genre</label>
+        <select 
+          id="genre" 
+          name="genre"
+          [(ngModel)]="book.genre"
+          class="form-control"
+        >
+          <option value="">Select Genre</option>
+          <option value="Fiction">Fiction</option>
+          <option value="Science">Science</option>
+          <option value="Technology">Technology</option>
+          <option value="History">History</option>
+          <option value="Biography">Biography</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="price">Price ($)</label>
+        <input 
+          type="number" 
+          id="price" 
+          name="price"
+          [(ngModel)]="book.price"
+          step="0.01"
+          class="form-control"
+        >
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="checkbox-label">
+        <input 
+          type="checkbox" 
+          name="inStock"
+          [(ngModel)]="book.inStock"
+        >
+        In Stock
+      </label>
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit" [disabled]="bookForm.invalid" class="btn-submit">
+        {{ isEditMode ? 'Update Book' : 'Create Book' }}
+      </button>
+      <a routerLink="/books" class="btn-cancel">Cancel</a>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,61 @@
+<div class="container">
+  <h1>📖 Book Details</h1>
+  
+  <div *ngIf="loading" class="loading">
+    ⏳ Loading book details...
+  </div>
+  
+  <div *ngIf="!loading && book" class="book-detail">
+    <div class="detail-card">
+      <div class="detail-header">
+        <h2>{{ book.title }}</h2>
+        <span class="stock-badge" [class.in-stock]="book.inStock" [class.out-stock]="!book.inStock">
+          {{ book.inStock ? '✅ In Stock' : '❌ Out of Stock' }}
+        </span>
+      </div>
+      
+      <div class="detail-info">
+        <div class="info-row">
+          <strong>✍️ Author:</strong>
+          <span>{{ book.author }}</span>
+        </div>
+        
+        <div class="info-row">
+          <strong>📖 Genre:</strong>
+          <span>{{ book.genre }}</span>
+        </div>
+        
+        <div class="info-row">
+          <strong>📅 Published Year:</strong>
+          <span>{{ book.publishedYear }}</span>
+        </div>
+        
+        <div class="info-row">
+          <strong>💰 Price:</strong>
+          <span>\${{ book.price.toFixed(2) }}</span>
+        </div>
+        
+        <div class="info-row">
+          <strong>🔑 ISBN:</strong>
+          <span>{{ book.isbn }}</span>
+        </div>
+        
+        <div class="info-row" *ngIf="book.createdAt">
+          <strong>📅 Created At:</strong>
+          <span>{{ book.createdAt | date:'medium' }}</span>
+        </div>
+        
+        <div class="info-row" *ngIf="book.updatedAt">
+          <strong>🔄 Last Updated:</strong>
+          <span>{{ book.updatedAt | date:'medium' }}</span>
+        </div>
+      </div>
+      
+      <div class="detail-actions">
+        <a routerLink="/books" class="btn-back">← Back to List</a>
+        <a [routerLink]="['/books/edit', book.id]" class="btn-edit">✏️ Edit Book</a>
+        <button (click)="deleteBook()" class="btn-delete">🗑️ Delete Book</button>
+      </div>
+    </div>
+  </div>
+</div>

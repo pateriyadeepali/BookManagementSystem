@@ -1,0 +1,64 @@
+<div class="container">
+  <h1>📚 Book Collection</h1>
+  
+  <!-- Filters Section -->
+  <div class="filters">
+    <input 
+      type="text" 
+      [(ngModel)]="searchTerm" 
+      (input)="filterBooks()"
+      placeholder="🔍 Search by title or author..."
+      class="search-input"
+    >
+    
+    <select [(ngModel)]="selectedGenre" (change)="filterBooks()" class="genre-select">
+      <option value="">All Genres</option>
+      <option value="Fiction">Fiction</option>
+      <option value="Science">Science</option>
+      <option value="Technology">Technology</option>
+      <option value="History">History</option>
+      <option value="Biography">Biography</option>
+    </select>
+    
+    <button (click)="toggleStockFilter()" class="filter-btn" [class.active]="showOnlyInStock">
+      {{ showOnlyInStock ? '📘 Show All' : '📗 In Stock Only' }}
+    </button>
+  </div>
+  
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">
+    ⏳ Loading books...
+  </div>
+  
+  <!-- Books Grid -->
+  <div *ngIf="!loading" class="books-grid">
+    <div *ngFor="let book of filteredBooks" class="book-card" [class.out-of-stock]="!book.inStock">
+      <div class="book-header">
+        <h3>{{ book.title }}</h3>
+        <span class="stock-badge" [class.in-stock]="book.inStock" [class.out-stock]="!book.inStock">
+          {{ book.inStock ? '✅ In Stock' : '❌ Out of Stock' }}
+        </span>
+      </div>
+      
+      <div class="book-info">
+        <p><strong>✍️ Author:</strong> {{ book.author }}</p>
+        <p><strong>📖 Genre:</strong> {{ book.genre }}</p>
+        <p><strong>📅 Year:</strong> {{ book.publishedYear }}</p>
+        <p><strong>💰 Price:</strong> \${{ book.price.toFixed(2) }}</p>
+        <p><strong>🔑 ISBN:</strong> {{ book.isbn }}</p>
+      </div>
+      
+      <div class="book-actions">
+        <a [routerLink]="['/books', book.id]" class="btn-view">👁️ View</a>
+        <a [routerLink]="['/books/edit', book.id]" class="btn-edit">✏️ Edit</a>
+        <button (click)="deleteBook(book.id!)" class="btn-delete">🗑️ Delete</button>
+      </div>
+    </div>
+    
+    <!-- Empty State -->
+    <div *ngIf="filteredBooks.length === 0" class="empty-state">
+      <p>📭 No books found matching your criteria.</p>
+      <a routerLink="/books/new" class="btn-add">➕ Add your first book</a>
+    </div>
+  </div>
+</div>
