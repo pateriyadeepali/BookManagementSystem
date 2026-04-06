@@ -9,6 +9,7 @@ public interface IBookService
     Task<Book> CreateAsync(Book book);
     Task UpdateAsync(string id, Book book);
     Task DeleteAsync(string id);
+    Task<List<Book>> SearchByTitleOrAuthorAsync(string searchTerm);
     Task<List<Book>> GetByGenreAsync(string genre);
     Task<List<Book>> GetAvailableBooksAsync();
 }

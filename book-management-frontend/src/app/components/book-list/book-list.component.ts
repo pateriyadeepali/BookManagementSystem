@@ -29,6 +29,7 @@ export class BookListComponent implements OnInit {
   loadBooks(): void {
     this.bookService.getAllBooks().subscribe({
       next: (books) => {
+        console.log('Books received from API:', books);
         this.books = books;
         this.filteredBooks = [...books];
         this.loading = false;
@@ -42,18 +43,37 @@ export class BookListComponent implements OnInit {
   }
 
   filterBooks(): void {
-    this.filteredBooks = this.books.filter(book => {
-      const matchesSearch = this.searchTerm === '' || 
-        book.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        book.author.toLowerCase().includes(this.searchTerm.toLowerCase());
-      
-      const matchesGenre = this.selectedGenre === '' || 
-        book.genre === this.selectedGenre;
-      
-      const matchesStock = !this.showOnlyInStock || book.inStock;
-      
-      return matchesSearch && matchesGenre && matchesStock;
-    });
+    if (this.searchTerm.trim() === '') {
+      // If search is empty, apply other filters to all books
+      this.filteredBooks = this.books.filter(book => {
+        const matchesGenre = this.selectedGenre === '' || book.genre === this.selectedGenre;
+        const matchesStock = !this.showOnlyInStock || book.inStock;
+        return matchesGenre && matchesStock;
+      });
+    } else {
+      // Use backend search API
+      this.bookService.searchBooks(this.searchTerm).subscribe({
+        next: (books) => {
+          // Apply additional filters to search results
+          this.filteredBooks = books.filter(book => {
+            const matchesGenre = this.selectedGenre === '' || book.genre === this.selectedGenre;
+            const matchesStock = !this.showOnlyInStock || book.inStock;
+            return matchesGenre && matchesStock;
+          });
+        },
+        error: (error) => {
+          console.error('Error searching books:', error);
+          // Fallback to client-side search
+          this.filteredBooks = this.books.filter(book => {
+            const matchesSearch = book.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+              book.author.toLowerCase().includes(this.searchTerm.toLowerCase());
+            const matchesGenre = this.selectedGenre === '' || book.genre === this.selectedGenre;
+            const matchesStock = !this.showOnlyInStock || book.inStock;
+            return matchesSearch && matchesGenre && matchesStock;
+          });
+        }
+      });
+    }
   }
 
   toggleStockFilter(): void {

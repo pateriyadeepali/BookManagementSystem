@@ -22,6 +22,21 @@ public class BooksController : ControllerBase
         return Ok(books);
     }
 
+    [HttpGet("search")]
+    public async Task<ActionResult<List<Book>>> Search([FromQuery] string title)
+    {
+        // If no search term, return all books
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            var allBooks = await _bookService.GetAllAsync();
+            return Ok(allBooks);
+        }
+        
+        // Search by title OR author
+        var books = await _bookService.SearchByTitleOrAuthorAsync(title);
+        return Ok(books);
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<Book>> GetById(string id)
     {
@@ -52,3 +67,5 @@ public class BooksController : ControllerBase
         return NoContent();
     }
 }
+
+

@@ -1,22 +1,60 @@
 
-.md
-.bin
-.obj
-.vs
-.idea
-.DS_Store
-*.log
-*.tmp
-*.bak
-*.swp
-*.swo
-*.sln
-*.csproj
+# .NET Build Directories
+bin/
+obj/
+
+# Visual Studio
+.vs/
+.vscode/
 *.user
 *.suo
-*.cache
+*.sln.docstates
+*.userprefs
+
+# Build outputs
 *.dll
-*.sqlite
-*.db3
+*.exe
+*.pdb
+*.so
+*.dylib
+*.app
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# Environment files
+.env
+.env.local
+
+# Temporary and cache files
+*.cache
 *.log
-*.env
+*.tmp
+*.tmp.*
+
+# Database files
+*.sqlite
+*.db
+*.db3
+
+# Runtime
+*.Up2Date
+*.Update
+*.vsix
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node modules (for Angular frontend)
+node_modules/
+dist/
+.angular/

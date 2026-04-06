@@ -54,4 +54,20 @@ public class BookService : IBookService
     {
         return await _booksCollection.Find(x => x.InStock == true).ToListAsync();
     }
+
+    public async Task<List<Book>> SearchByTitleOrAuthorAsync(string searchTerm)
+    {
+        if (string.IsNullOrWhiteSpace(searchTerm))
+            return await GetAllAsync();
+
+        // Create a filter that searches in BOTH Title and Author
+        var filter = Builders<Book>.Filter.Or(
+            Builders<Book>.Filter.Regex(x => x.Title, 
+                new MongoDB.Bson.BsonRegularExpression(searchTerm, "i")), // 'i' = case insensitive
+            Builders<Book>.Filter.Regex(x => x.Author, 
+                new MongoDB.Bson.BsonRegularExpression(searchTerm, "i"))
+        );
+
+        return await _booksCollection.Find(filter).ToListAsync();
+    }
 }
