@@ -53,4 +53,9 @@ export class BookService {
       params: { title: searchTerm }
     });
   }
+
+  // GET total count of books
+  getBooksCount(): Observable<{ totalBooks: number }> {
+        return this.http.get<{ totalBooks: number }>(`${this.apiUrl}/count`);
+    }
 }                 

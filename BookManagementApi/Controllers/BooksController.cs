@@ -66,6 +66,13 @@ public class BooksController : ControllerBase
         await _bookService.DeleteAsync(id);
         return NoContent();
     }
+
+    [HttpGet("count")]  // URL: GET /api/books/count
+    public async Task<ActionResult<long>> GetCount()
+    {
+        var count = await _bookService.GetBooksCountAsync();
+        return Ok(new { totalBooks = count });
+    }
 }
 
 

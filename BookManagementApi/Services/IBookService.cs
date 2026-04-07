@@ -12,4 +12,5 @@ public interface IBookService
     Task<List<Book>> SearchByTitleOrAuthorAsync(string searchTerm);
     Task<List<Book>> GetByGenreAsync(string genre);
     Task<List<Book>> GetAvailableBooksAsync();
+    Task<long> GetBooksCountAsync();
 }

@@ -1,6 +1,16 @@
 <div class="container">
   <h1>📚 Book Collection</h1>
+
   
+  <div class="stats">
+      <p>📚 Total Books in Library: <strong>{{ totalBooksCount }}</strong></p>
+  </div>
+
+  <!-- Rest of your book list -->
+  <div *ngFor="let book of books">
+      {{ book.title }}
+  </div>
+    
   <!-- Filters Section -->
   <div class="filters">
     <input 

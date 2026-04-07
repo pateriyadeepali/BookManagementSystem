@@ -70,4 +70,10 @@ public class BookService : IBookService
 
         return await _booksCollection.Find(filter).ToListAsync();
     }
+
+    public async Task<long> GetBooksCountAsync()
+    {
+        // Count all documents in the Books collection
+        return await _booksCollection.CountDocumentsAsync(_ => true);
+    }
 }
