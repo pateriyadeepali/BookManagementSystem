@@ -76,4 +76,11 @@ public class BookService : IBookService
         // Count all documents in the Books collection
         return await _booksCollection.CountDocumentsAsync(_ => true);
     }
+    public async Task<long> GetInStockCountAsync()
+    {
+        // Count only books where InStock = true
+        var filter = Builders<Book>.Filter.Eq(x => x.InStock, true);
+        return await _booksCollection.CountDocumentsAsync(filter);
+    }
+
 }

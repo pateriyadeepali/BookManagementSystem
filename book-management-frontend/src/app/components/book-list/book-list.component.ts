@@ -19,6 +19,7 @@ export class BookListComponent implements OnInit {
   searchTerm = '';
   selectedGenre = '';
   totalBooksCount = 0;
+  inStockCount = 0;
   showOnlyInStock = false;
 
   constructor(private bookService: BookService) {}
@@ -26,6 +27,7 @@ export class BookListComponent implements OnInit {
   ngOnInit(): void {
     this.loadBooks();
     this.loadBooksCount();
+    this.loadInStockCount();
   }
 
   loadBooksCount(): void {
@@ -36,6 +38,18 @@ export class BookListComponent implements OnInit {
             },
             error: (err) => {
                 console.error('Error loading count:', err);
+            }
+        });
+    }
+
+  loadInStockCount(): void {
+        this.bookService.getInStockCount().subscribe({
+            next: (response) => {
+                this.inStockCount = response.inStockBooks;
+                console.log('Books in stock:', this.inStockCount);
+            },
+            error: (err) => {
+                console.error('Error loading in-stock count:', err);
             }
         });
     }

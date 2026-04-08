@@ -35,11 +35,6 @@
           <span>\${{ book.price.toFixed(2) }}</span>
         </div>
         
-        <div class="info-row">
-          <strong>🔑 ISBN:</strong>
-          <span>{{ book.isbn }}</span>
-        </div>
-        
         <div class="info-row" *ngIf="book.createdAt">
           <strong>📅 Created At:</strong>
           <span>{{ book.createdAt | date:'medium' }}</span>

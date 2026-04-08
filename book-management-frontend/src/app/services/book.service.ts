@@ -57,5 +57,9 @@ export class BookService {
   // GET total count of books
   getBooksCount(): Observable<{ totalBooks: number }> {
         return this.http.get<{ totalBooks: number }>(`${this.apiUrl}/count`);
-    }
+  }
+
+  getInStockCount(): Observable<{ inStockBooks: number }> {
+        return this.http.get<{ inStockBooks: number }>(`${this.apiUrl}/instock/count`);
+  }
 }                 

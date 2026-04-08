@@ -73,6 +73,13 @@ public class BooksController : ControllerBase
         var count = await _bookService.GetBooksCountAsync();
         return Ok(new { totalBooks = count });
     }
+    
+    [HttpGet("instock/count")]  // URL: GET /api/books/instock/count
+    public async Task<ActionResult<long>> GetInStockCount()
+    {
+        var count = await _bookService.GetInStockCountAsync();
+        return Ok(new { inStockBooks = count });
+    }
 }
 
 

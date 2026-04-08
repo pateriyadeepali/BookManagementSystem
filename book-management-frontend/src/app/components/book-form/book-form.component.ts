@@ -16,7 +16,6 @@ export class BookFormComponent implements OnInit {
   book: Book = {
     title: '',
     author: '',
-    isbn: '',
     publishedYear: new Date().getFullYear(),
     genre: '',
     price: 0,

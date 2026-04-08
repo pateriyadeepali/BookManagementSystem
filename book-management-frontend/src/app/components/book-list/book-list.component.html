@@ -6,9 +6,10 @@
       <p>📚 Total Books in Library: <strong>{{ totalBooksCount }}</strong></p>
   </div>
 
-  <!-- Rest of your book list -->
-  <div *ngFor="let book of books">
-      {{ book.title }}
+  <div class="stat-card" [class.low-stock]="inStockCount < 3">
+        <p>✅ Books In Stock: <strong>{{ inStockCount }}</strong></p>
+        <p *ngIf="inStockCount === 0" class="warning">⚠️ No books available!</p>
+        <p *ngIf="inStockCount < 3 && inStockCount > 0" class="warning">⚠️ Low stock!</p>
   </div>
     
   <!-- Filters Section -->
@@ -28,6 +29,8 @@
       <option value="Technology">Technology</option>
       <option value="History">History</option>
       <option value="Biography">Biography</option>
+      <option value="Fantasy">Fantasy</option>
+      <option value="Mystery">Mystery</option>
     </select>
     
     <button (click)="toggleStockFilter()" class="filter-btn" [class.active]="showOnlyInStock">
@@ -55,13 +58,12 @@
         <p><strong>📖 Genre:</strong> {{ book.genre }}</p>
         <p><strong>📅 Year:</strong> {{ book.publishedYear }}</p>
         <p><strong>💰 Price:</strong> \${{ book.price.toFixed(2) }}</p>
-        <p><strong>🔑 ISBN:</strong> {{ book.isbn }}</p>
       </div>
       
       <div class="book-actions">
-        <a [routerLink]="['/books', book.id]" class="btn-view">👁️ View</a>
-        <a [routerLink]="['/books/edit', book.id]" class="btn-edit">✏️ Edit</a>
-        <button (click)="deleteBook(book.id!)" class="btn-delete">🗑️ Delete</button>
+        <a [routerLink]="['/books', book.id]" class="btn-view">View</a>
+        <a [routerLink]="['/books/edit', book.id]" class="btn-edit">Edit</a>
+        <button (click)="deleteBook(book.id!)" class="btn-delete">Delete</button>
       </div>
     </div>
     

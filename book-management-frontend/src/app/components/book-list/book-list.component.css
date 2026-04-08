@@ -36,7 +36,7 @@ h1 {
   background-color: #4CAF50;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -120,17 +120,17 @@ h1 {
 }
 
 .btn-view {
-  background-color: #2196F3;
+  background-color: #0c5da0;
   color: white;
 }
 
 .btn-edit {
-  background-color: #ff9800;
+  background-color: #0c5da0;
   color: white;
 }
 
 .btn-delete {
-  background-color: #f44336;
+  background-color: #0c5da0;
   color: white;
 }
 
@@ -155,4 +155,28 @@ h1 {
   color: white;
   text-decoration: none;
   border-radius: 5px;
+}
+
+.stats {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.stat-card {
+    padding: 12px;
+    background: #f0f0f0;
+    border-radius: 6px;
+    border-left: 3px solid #007bff;
+}
+
+.stat-card.low-stock {
+    border-left-color: #ff9800;
+    background: #f3e9c0;
+}
+
+.warning {
+    color: #ff9800;
+    font-size: 12px;
+    margin: 5px 0 0 0;
 }
