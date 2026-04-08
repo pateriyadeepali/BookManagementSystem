@@ -15,9 +15,6 @@ public class Book
     [BsonElement("author")]
     public string Author { get; set; } = string.Empty;
     
-    [BsonElement("isbn")]
-    public string ISBN { get; set; } = string.Empty;
-    
     [BsonElement("publishedYear")]
     public int PublishedYear { get; set; }
     
